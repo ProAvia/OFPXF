@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<data 	xmlns="https://github.com/ProAvia/ofpxf/v1"
+		publisher="ProAvia"
+		unit="USC/USG"
+		issued="2019-11-07T14:09:57Z">
+		
+	<valid from="2019-12-01T00:00:00Z" until="2019-12-31T23:59:59Z" />
+	<preOrder required="true" leadTime="02:00:00" />
+	
+	<items>
+		
+		<!-- An example fuel price in Stuttgart / EDDS, which uses all possible properties -->
+		<item icao="EDDS">
+			<price price="349.99" unit="USC/USG" />
+			<preOrder required="true" />
+			<valid from="2019-12-01T00:00:00Z" until="2019-12-31T23:59:59Z" />
+			<operatingHours from="04:00:00" until="23:00:00" timeType="Local" />
+			<flags>MilitaryOnly InternationalOnly</flags>
+			<meta intoPlaneAgent="SKYTANKING" supplier="SHELL" phone="+49 711 123456789" paymentType="Invoice" />
+			<remark>foo</remark>
+			<fees>
+				<perUplift price="30" currency="USD" />
+				<cancellation price="30" currency="USD" />
+				<lowVolume price="100" currency="USD" threshold="100" thresholdUnit="L" />
+				<overtime price="150" currency="USD" from="22:00:00" until="05:30:00" timeType="Local" />
+				<custom price="10" currency="USD" description="Hookup" />
+				<custom price="10" currency="USD" description="General" />
+			</fees>
+		</item>
+		
+		<!-- A very simple example fuel price in Frankfurt / EDDF,
+			which uses the minimal required tags and attributes. 
+		-->
+		<item icao="EDDF">
+			<price price="300" />
+		</item>
+		
+	</items>
+	
+</data>

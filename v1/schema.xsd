@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="https://github.com/ProAvia/ofpxf/v1"
+           targetNamespace="https://github.com/ProAvia/ofpxf/v1"
+           elementFormDefault="qualified">
+		   
+	<xs:element name="data" type="DataType" />
+	
+	<xs:complexType name="DataType">
+		<xs:all>
+			<xs:element name="valid" type="DateTimeRangeType" minOccurs="0" />
+			<xs:element name="preOrder" type="PreOrderType" minOccurs="0" />
+			<xs:element name="items" type="ItemsType" />
+		</xs:all>
+		<xs:attribute name="publisher" type="xs:string" use="required" />
+		<xs:attribute name="unit" type="FuelPriceUnitType" use="required" />
+		<xs:attribute name="issued" type="xs:dateTime" use="required" />
+		<xs:attribute name="validFrom" type="xs:dateTime" />
+		<xs:attribute name="validUntil" type="xs:dateTime" />
+	</xs:complexType>
+	
+	<xs:complexType name="ItemsType">
+		<xs:sequence>
+			<xs:element name="item" type="ItemType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ItemType">
+		<xs:all>
+			<xs:element name="price" type="FuelPriceType" minOccurs="1" />
+			<xs:element name="meta" type="MetaType" minOccurs="0" />
+			<xs:element name="preOrder" type="PreOrderType" minOccurs="0" />
+			<xs:element name="valid" type="DateTimeRangeType" minOccurs="0" />
+			<xs:element name="flags" type="FlagsType" minOccurs="0" />
+			<xs:element name="fees" type="FeesType" minOccurs="0" />
+			<xs:element name="operatingHours" type="TimeRangeType" minOccurs="0" />
+			<xs:element name="remark" type="xs:string" minOccurs="0" />
+		</xs:all>
+		<xs:attribute name="icao" type="xs:string" use="required" />
+	</xs:complexType>
+	
+	<xs:complexType name="PreOrderType">
+		<xs:attribute name="required" type="xs:boolean" use="required" />
+		<xs:attribute name="leadTime" type="xs:time" />
+	</xs:complexType>
+	
+	<xs:complexType name="MetaType">
+		<xs:attribute name="paymentType" type="PaymentType" />
+		<xs:attribute name="intoPlaneAgent" type="xs:string" />
+		<xs:attribute name="supplier" type="xs:string" />
+		<xs:attribute name="phone" type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="DateTimeRangeType">
+		<xs:attribute name="from" type="xs:dateTime" use="required" />
+		<xs:attribute name="until" type="xs:dateTime" use="required" />
+	</xs:complexType>
+	
+	<xs:complexType name="TimeRangeType">
+		<xs:attribute name="from" type="xs:time" use="required" />
+		<xs:attribute name="until" type="xs:time" use="required" />
+		<xs:attribute name="timeType" type="TimeType" use="required" />
+	</xs:complexType>
+	
+	<xs:complexType name="FuelPriceType">
+		<xs:attribute name="price" type="xs:decimal" use="required" />
+		<xs:attribute name="unit" type="FuelPriceUnitType" />
+	</xs:complexType>
+	
+	<xs:simpleType name="FlagsType">
+		<xs:list>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="InternationalOnly" />
+					<xs:enumeration value="DomesticOnly" />
+					<xs:enumeration value="MilitaryOnly" />
+					<xs:enumeration value="PrivateOnly" />
+					<xs:enumeration value="CommercialOnly" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:list>
+	</xs:simpleType>
+	
+	<xs:complexType name="FeesType">
+		<xs:sequence>
+			<xs:element name="perUplift" type="DefaultFeeType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="cancellation" type="DefaultFeeType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="lowVolume" type="LowVolumeFeeType" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="overtime" type="OvertimeFeeType" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="custom" type="CustomFeeType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="CustomFeeType">
+		<xs:attribute name="description" type="xs:string" use="required" />
+		<xs:attribute name="price" type="xs:decimal" use="required" />
+		<xs:attribute name="currency" type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="DefaultFeeType">
+		<xs:attribute name="price" type="xs:decimal" use="required" />
+		<xs:attribute name="currency" type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="LowVolumeFeeType">
+		<xs:attribute name="price" type="xs:decimal" use="required" />
+		<xs:attribute name="currency" type="xs:string" />
+		<xs:attribute name="threshold" type="xs:decimal" use="required" />
+		<xs:attribute name="thresholdUnit" type="xs:string" />
+	</xs:complexType>
+	
+	<xs:complexType name="OvertimeFeeType">
+		<xs:attribute name="price" type="xs:decimal" use="required" />
+		<xs:attribute name="from" type="xs:time" use="required" />
+		<xs:attribute name="until" type="xs:time" use="required" />
+		<xs:attribute name="timeType" type="TimeType" use="required" />
+		<xs:attribute name="currency" type="xs:string" />
+	</xs:complexType>
+	
+	<xs:simpleType name="FuelPriceUnitType">
+		<xs:restriction base="xs:string">
+			<!-- USD -->
+			<xs:enumeration value="USD/USG" />
+			<xs:enumeration value="USD/L" />
+			<xs:enumeration value="USD/T" />
+			<xs:enumeration value="USD/KG" />
+			
+			<!-- USC -->
+			<xs:enumeration value="USC/USG" />
+			<xs:enumeration value="USC/L" />
+			<xs:enumeration value="USC/T" />
+			<xs:enumeration value="USD/KG" />
+			
+			<!-- EUR -->
+			<xs:enumeration value="EUR/USG" />
+			<xs:enumeration value="EUR/L" />
+			<xs:enumeration value="EUR/T" />
+			<xs:enumeration value="USD/KG" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="PaymentType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Cash" />
+			<xs:enumeration value="CreditCard" />
+			<xs:enumeration value="Carnet" />
+			<xs:enumeration value="Invoice" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="TimeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Local" />
+			<xs:enumeration value="UTC" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
