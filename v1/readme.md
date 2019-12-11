@@ -12,7 +12,10 @@ The file content shall be encoded using `UTF-8` only.
 
 ## Date and time
 
-All date and time values within the document have to be in and are treated as `UTC` unless otherwise specified. The format needs to match [ISO 8601 as described in the XSD reference](https://www.w3.org/TR/xmlschema-2/#dateTime).
+All date and time values within the document have to be in and are treated as `UTC` unless otherwise specified.
+
+The `dateTime` format needs to match ISO 8601 as [described in the XSD reference](https://www.w3.org/TR/xmlschema-2/#dateTime).
+The `time` format needs to match ISO 8601 as [described in the XSD reference](https://www.w3.org/TR/xmlschema-2/#time)
 
 ## Validation
 
