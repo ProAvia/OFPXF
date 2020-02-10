@@ -13,7 +13,8 @@
 			<xs:element name="items" type="ItemsType" />
 		</xs:all>
 		<xs:attribute name="publisher" type="xs:string" use="required" />
-		<xs:attribute name="unit" type="FuelPriceUnitType" use="required" />
+		<xs:attribute name="currency" type="CurrencyType" use="required" />
+		<xs:attribute name="quantityUnit" type="QuantityUnitType" use="required" />
 		<xs:attribute name="issued" type="xs:dateTime" use="required" />
 		<xs:attribute name="validFrom" type="xs:dateTime" />
 		<xs:attribute name="validUntil" type="xs:dateTime" />
@@ -28,6 +29,7 @@
 	<xs:complexType name="ItemType">
 		<xs:all>
 			<xs:element name="price" type="FuelPriceType" minOccurs="1" />
+			<xs:element name="minUplift" type="MinimumUpliftType" minOccurs="0" />
 			<xs:element name="meta" type="MetaType" minOccurs="0" />
 			<xs:element name="preOrder" type="PreOrderType" minOccurs="0" />
 			<xs:element name="valid" type="DateTimeRangeType" minOccurs="0" />
@@ -64,7 +66,13 @@
 	
 	<xs:complexType name="FuelPriceType">
 		<xs:attribute name="price" type="xs:decimal" use="required" />
-		<xs:attribute name="unit" type="FuelPriceUnitType" />
+		<xs:attribute name="currency" type="CurrencyType" />
+		<xs:attribute name="quantityUnit" type="QuantityUnitType" />
+	</xs:complexType>
+	
+	<xs:complexType name="MinimumUpliftType">
+		<xs:attribute name="threshold" type="xs:decimal" use="required" />
+		<xs:attribute name="thresholdUnit" type="QuantityUnitType" />
 	</xs:complexType>
 	
 	<xs:simpleType name="FlagsType">
@@ -106,7 +114,7 @@
 		<xs:attribute name="price" type="xs:decimal" use="required" />
 		<xs:attribute name="currency" type="xs:string" />
 		<xs:attribute name="threshold" type="xs:decimal" use="required" />
-		<xs:attribute name="thresholdUnit" type="xs:string" />
+		<xs:attribute name="thresholdUnit" type="QuantityUnitType" />
 	</xs:complexType>
 	
 	<xs:complexType name="OvertimeFeeType">
@@ -117,25 +125,11 @@
 		<xs:attribute name="currency" type="xs:string" />
 	</xs:complexType>
 	
-	<xs:simpleType name="FuelPriceUnitType">
+	<xs:simpleType name="CurrencyType">
 		<xs:restriction base="xs:string">
-			<!-- USD -->
-			<xs:enumeration value="USD/USG" />
-			<xs:enumeration value="USD/L" />
-			<xs:enumeration value="USD/T" />
-			<xs:enumeration value="USD/KG" />
-			
-			<!-- USC -->
-			<xs:enumeration value="USC/USG" />
-			<xs:enumeration value="USC/L" />
-			<xs:enumeration value="USC/T" />
-			<xs:enumeration value="USD/KG" />
-			
-			<!-- EUR -->
-			<xs:enumeration value="EUR/USG" />
-			<xs:enumeration value="EUR/L" />
-			<xs:enumeration value="EUR/T" />
-			<xs:enumeration value="USD/KG" />
+			<xs:enumeration value="EUR" />
+			<xs:enumeration value="USD" />
+			<xs:enumeration value="USC" />
 		</xs:restriction>
 	</xs:simpleType>
 	
@@ -152,6 +146,16 @@
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Local" />
 			<xs:enumeration value="UTC" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="QuantityUnitType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="L" />
+			<xs:enumeration value="KG" />
+			<xs:enumeration value="T" />
+			<xs:enumeration value="M3" />
+			<xs:enumeration value="USG" />
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>

@@ -26,7 +26,8 @@ Please see the [example document](example.ofpx) as well.
 
 All listed properties which are provided for a single price will overwrite the globally set value for the respective item.
 
-- Unit
+- Currency
+- Quantity Unit
 - Validity
 - Pre-order
 
@@ -35,7 +36,8 @@ All listed properties which are provided for a single price will overwrite the g
 Required. The root element is named `data` and requires the following attributes.
 
 - The name of the `publisher` (string).
-- The `unit` of the prices within the document (see list of [unit types](enums.md#unit-type)).
+- The `quantityUnit` of the prices within the document (see list of [quantity unit types](enums.md#quantity-unit-type)).
+- The `currency` of the prices within the document (see list of [currency types](enums.md#currency-type)).
 - The date and time the file has been `issued` (dateTime).
 
 ## Optional elements below root
@@ -46,7 +48,7 @@ Optional. As a child of the `data` element, one or zero element is allowed which
 
 ### Pre-order element
 
-Optional. As a child of the `data` element, one or zero element is allowed which specifies whether ordering fuel via any of the data records within this document requires a `preOrder`. Therefore, the `required` (booelan) attribute is required. Additionally, the optional `leadTime` (time) attribute describes the time needed between an order and the actual ability to provide fuel.
+Optional. As a child of the `data` element, one or zero element is allowed which specifies whether ordering fuel via any of the data records within this document requires a `preOrder`. Therefore, the `required` (boolean) attribute is required. Additionally, the optional `leadTime` (time) attribute describes the time needed between an order and the actual ability to provide fuel.
 
 ## Items collection
 
@@ -58,7 +60,11 @@ As a child of the `items` element, any number of elements with the name `item` a
 
 ### Price element
 
-Required. The `price` element is required on each item, as well as its `price` (decimal) attribute. Optionally, this element can hold a `unit` type as well.
+Required. The `price` element is required on each item, as well as its `price` (decimal) attribute. Optionally, this element can hold a `quantityUnit` and `currency` as well.
+
+### Minimum uplift element
+
+Optional. If the specified `price` is only available if the uplift is greated than a certain amount, it can be specified in the `threshold` attribute. Optionally, this element can hold a `quantityUnit` ([quantity unit types](enums.md#quantity-unit-type)) and `currency` ([currency types](enums.md#currency-type)) as well.
 
 ### Pre-order element
 
@@ -91,7 +97,7 @@ Optional. The `remark` (string) element can contain free text.
 
 ### Fees
 
-Optional. The `fees` element can contain either pre-defined or custom fees which apply to this price item. Every element below this element requires a `price` (decimal) and can optionally have a `currency` (string) attribute.
+Optional. The `fees` element can contain either pre-defined or custom fees which apply to this price item. Every element below this element requires a `price` (decimal) and can optionally have a `currency` ([currency types](enums.md#currency-type)) attribute.
 
 #### Per uplift fee
 
@@ -103,7 +109,7 @@ Optional. The `cancellation` element defines the fee applicable when cancelling 
 
 #### Low volume fee
 
-Optional. The `lowVolume` element defines the fee applicable when ordering fuel below a certain volume. The required attributes `theshold` (decimal) and `thresholdUnit` (string) describe the limit.
+Optional. The `lowVolume` element defines the fee applicable when ordering fuel below a certain volume. The required attributes `theshold` (decimal) and `thresholdUnit` ([threshold unit types](enums.md#quantity-unit-type)) describe the limit.
 
 #### Overtime fee
 

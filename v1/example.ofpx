@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <data 	xmlns="https://github.com/ProAvia/ofpxf/v1"
 		publisher="ProAvia"
-		unit="USC/USG"
+		currency="USC"
+		quantityUnit="USG"
 		issued="2019-11-07T14:09:57Z">
 		
 	<valid from="2019-12-01T00:00:00Z" until="2019-12-31T23:59:59Z" />
@@ -11,7 +12,8 @@
 		
 		<!-- An example fuel price in Stuttgart / EDDS, which uses all possible properties -->
 		<item icao="EDDS">
-			<price price="349.99" unit="USC/USG" />
+			<price price="3.4999" currency="USD" quantityUnit="USG" />
+			<minUplift threshold="1000" thresholdUnit="L" />
 			<preOrder required="true" />
 			<valid from="2019-12-01T00:00:00Z" until="2019-12-31T23:59:59Z" />
 			<operatingHours from="04:00:00" until="23:00:00" timeType="Local" />

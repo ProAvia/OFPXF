@@ -1,24 +1,23 @@
 # Enumerations
 
-## Unit type
+## Currency type
 
-- USD/USG
-- USD/L
-- USD/T
-- USD/KG
-- USC/USG
-- USC/L
-- USC/T
-- USD/KG
-- EUR/USG
-- EUR/L
-- EUR/T
-- USD/KG
+- EUR (Euro)
+- USD (US Dollar)
+- USC (US Cent)
+
+## Quantity Unit Type
+
+- L (Liter)
+- KG (Kilogram)
+- T (Ton)
+- M3 (Cubic meter)
+- USG (US Gallon)
 
 ## Time type
 
-- Local
 - UTC
+- Local
 
 ## Flags
 
