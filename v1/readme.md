@@ -64,7 +64,7 @@ Required. The `price` element is required on each item, as well as its `price` (
 
 ### Minimum uplift element
 
-Optional. If the specified `price` is only available if the uplift is greated than a certain amount, it can be specified in the `threshold` attribute. Optionally, this element can hold a `quantityUnit` ([quantity unit types](enums.md#quantity-unit-type)) and `currency` ([currency types](enums.md#currency-type)) as well.
+Optional. If the specified `price` is only available if the uplift is greater than a certain amount, it can be specified in the `threshold` attribute. Optionally, this element can hold a `quantityUnit` ([quantity unit types](enums.md#quantity-unit-type)) and `currency` ([currency types](enums.md#currency-type)) as well.
 
 ### Pre-order element
 
